@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if current_user.is_authenticated %}
+        <div class="left_nav704">
+            <div style="padding-bottom: 10px">
+                <a href=/user/{{ current_user.id }}><font size="4">Профиль</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href=/><font size="4">Главная</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="/list_message"><font size="4">Сообщения</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href=/friends/{{ current_user.id }}><font size="4">
+                Друзья</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="/invite_friends"><font size="4">Заявки</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="/search"><font size="4">Поиск</font></a>
+            </div>
+        </div>
+    {% endif %}
+	<div class="message_list" id="list_message">
+		{% for item in list_last_message %}
+				<div class="friend_info">
+					{% if item['user'].avatar %}
+	                    <div class="friend_photo100">
+	                        <img src="{{ url_for("static", filename=item['user'].avatar.photo.img_name) }}" alt="" style="max-height: 110px; max-width: 110px; margin: auto;">
+	                    </div>
+	                    <div class="friend_photo50">
+	                        <img src="{{ url_for("static", filename=item['user'].avatar.photo.img_name) }}" alt="" style="max-height: 60px; max-width: 60px; margin: auto;">
+	                    </div>
+	                {% else %}
+	                	<div class="friend_photo100">
+	                        <img src="{{ url_for("static", filename="img/ava_profile.png") }}" alt="" style="max-height: 100px; max-width: 100px; margin: auto;">
+	                    </div>
+	                    <div class="friend_photo50">
+	                        <img src="{{ url_for("static", filename="img/ava_profile.png") }}" alt="" style="max-height: 50px; max-width: 50px; margin: auto;">
+	                    </div>
+	                {% endif %}
+	                <div class="friend_name">
+						<a href=/user/{{ item['user'].id }}><h4>{{ item['user'].name }} {{ item['user'].surname }}</h4></a>
+						<a href=/message/{{ item['user'].id }} style="color: black">
+							<div class="last_message">
+								<p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ">{{ item['text'] }}</p>
+							</div>
+						</a>
+					</div>
+				</div>
+		{% endfor %}
+		{% if list_last_message|length == 0 %}
+			<h4>Нет сообщений</h4>
+		{% endif %}
+	</div>
+{% endblock %}

@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if current_user.is_authenticated %}
+        <div class="left_nav600">
+            <div style="padding-bottom: 10px">
+                <a href=/user/{{ current_user.id }}><font size="4">Профиль</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href=/><font size="4">Главная</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="/list_message"><font size="4">Сообщения</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href=/friends/{{ current_user.id }}><font size="4">
+                Друзья</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="/invite_friends"><font size="4">Заявки</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="/search"><font size="4">Поиск</font></a>
+            </div>
+        </div>
+    {% endif %}
+	<div class="search">
+		<div style="padding-bottom: 40px">
+			<div class="input_name">
+			  	<input class="form-control" type="text" placeholder="Имя" id="name">
+			</div>
+			<div class="input_surname">
+			  	<input class="form-control" type="text" placeholder="Фамилия" id="surname">
+			</div>
+			<a href="javascript:search();" style="color: black">
+				<svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
+				  	<path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
+				</svg>
+			</a>
+		</div>
+		<div id="list_user">
+		</div>
+	</div>
+	{% block scripts %}
+		<script>
+			function search() {
+				$.post('/search_friend', {
+                    name: document.getElementById('name').value,
+                    surname: document.getElementById('surname').value,
+               	}).done(function(response) {
+               		document.getElementById('list_user').innerHTML = ''
+               		for (var i = 0; i < response['users'].length; i++) {
+               			let div_info = document.createElement('div');
+               			div_info.className = 'friend_info';
+               			div_info.id = 'user' + response['users'][i]['id'];
+               			let div_photo100 = document.createElement('div');
+               			div_photo100.className = 'friend_photo100';
+               			let img100 = document.createElement('img');
+               			if (response['users'][i]['avatar']) {
+               				var src = 'static/' + response['users'][i]['avatar']
+               				img100.src = src;
+               				img100.style = "max-height: 110px; max-width: 110px; margin: auto;"
+               			} else {
+               				img100.src = '{{ url_for("static", filename="img/ava_profile.png") }}';
+               				img100.style = "max-height: 100px; max-width: 100px; margin: auto;"
+               			}
+               			div_photo100.append(img100);
+               			div_info.append(div_photo100);
+               			let div_photo50 = document.createElement('div');
+               			div_photo50.className = 'friend_photo50';
+               			let img50 = document.createElement('img');
+               			if (response['users'][i]['avatar']) {
+               				var src = 'static/' + response['users'][i]['avatar']
+               				img50.src = src;
+               				img50.style = "max-height: 60px; max-width: 60px; margin: auto;"
+               			} else {
+               				img50.src = '{{ url_for("static", filename="img/ava_profile.png") }}';
+               				img50.style = "max-height: 50px; max-width: 50px; margin: auto;"
+               			}
+               			div_photo50.append(img50);
+               			div_info.append(div_photo50);
+               			let div = document.createElement('div');
+               			div.className = "friend_name";
+               			let a_user = document.createElement('a');
+               			a_user.href = '/user/' + response['users'][i]['id'];
+               			let h4 = document.createElement('h4');
+               			h4.innerHTML = response['users'][i]['name'] + ' ' + response['users'][i]['surname'];
+               			a_user.append(h4);
+               			div.append(a_user);
+               			if (response['users'][i]['id'] != {{ current_user.id }}) {
+	               			let button = document.createElement('input');
+	               			button.type = 'button';
+	               			button.id = 'invite' + response['users'][i]['id']
+	               			if (response['users'][i]['type'] == 0) {
+	               				button.className = 'btn btn-success';
+	               				button.value = 'Отправить заявку';
+	               				var fun = "send_invite('" + response['users'][i]['id'] + "')";
+	               				button.setAttribute('onclick', fun);
+	               			} else if (response['users'][i]['type'] == 1) {
+	               				button.className = 'btn btn-danger';
+	               				button.value = 'Отменить заявку';
+	               				var fun = "cancel_invite('" + response['users'][i]['id'] + "')";
+	               				button.setAttribute('onclick', fun);
+	               			} else if (response['users'][i]['type'] == 2) {
+	               				button.className = 'btn btn-success';
+	               				button.value = 'Принять заявку';
+	               				var fun = "accept_invite('" + response['users'][i]['id'] + "')";
+	               				button.setAttribute('onclick', fun);
+	               			} else if (response['users'][i]['type'] == 3) {
+	               				button.className = 'btn btn-danger';
+	               				button.value = 'Удалить из друзей';
+	               				var fun = "delete_friend('" + response['users'][i]['id'] + "')";
+	               				button.setAttribute('onclick', fun);
+	               			}
+	               			div.append(button)
+	               		}
+               			div_info.append(div);
+               			$('#list_user').append(div_info);
+               		}
+               	})
+			}
+		</script>
+		<script>
+			function accept_invite(id_sender) {
+				$.post('/accept_invite', {
+                    id: id_sender,
+                }).done(function(response) {
+                	document.getElementById('invite' + id_sender).className = 'btn btn-danger';
+                	document.getElementById('invite' + id_sender).value = 'Удалить из друзей';
+                	var fun = "delete_friend('" + id_sender + "')";
+	               	document.getElementById('invite' + id_sender).setAttribute('onclick', fun);
+                }).fail(function(response) {
+                	document.getElementById('invite' + id_sender).value = 'Отправить заявку';
+                	var fun = "send_invite('" + id_sender + "')";
+	               	document.getElementById('invite' + id_sender).setAttribute('onclick', fun);
+                })
+			}
+		</script>
+		<script>
+			function delete_friend(id_friend) {
+				$.post('/delete_friend', {
+					id: id_friend
+				}).done(function(response) {
+					document.getElementById('invite' + id_friend).className = 'btn btn-success';
+                	document.getElementById('invite' + id_friend).value = 'Принять заявку';
+                	var fun = "accept_invite('" + id_friend + "')";
+                	document.getElementById('invite' + id_friend).setAttribute('onclick', fun);
+				}).fail(function(response) {
+                	document.getElementById('invite' + id_friend).value = 'Отменить заявку';
+                	var fun = "cancel_invite('" + id_friend + "')";
+                	document.getElementById('invite' + id_friend).setAttribute('onclick', fun);
+				})
+			}
+		</script>
+		<script>
+			function send_invite(id) {
+				$.post('/send_invite', {
+					id: id
+				}).done(function(response) {
+					document.getElementById('invite' + id).className = 'btn btn-danger';
+                	document.getElementById('invite' + id).value = 'Отменить заявку';
+                	var fun = "cancel_invite('" + id + "')";
+                	document.getElementById('invite' + id).setAttribute('onclick', fun);
+				}).fail(function(response) {
+                	document.getElementById('invite' + id).value = 'Принять заявку';
+                	var fun = "accept_invite('" + id + "')";
+                	document.getElementById('invite' + id).setAttribute('onclick', fun);
+				})
+			}
+		</script>
+		<script>
+			function cancel_invite(id) {
+				$.post('/cancel_invite', {
+					id: id
+				}).done(function(response) {
+					document.getElementById('invite' + id).className = 'btn btn-success';
+					document.getElementById('invite' + id).value = 'Отправить заявку';
+                	var fun = "send_invite('" + id + "')";
+	               	document.getElementById('invite' + id).setAttribute('onclick', fun);
+				}).fail(function(response) {
+                	document.getElementById('invite' + id).value = 'Удалить из друзей';
+                	var fun = "delete_friend('" + id + "')";
+	               	document.getElementById('invite' + id).setAttribute('onclick', fun);
+				})
+			}
+		</script>
+	{% endblock %}
+{% endblock %}

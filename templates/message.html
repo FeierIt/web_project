@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if current_user.is_authenticated %}
+        <div class="left_nav600">
+            <div style="padding-bottom: 10px">
+                <a href=/user/{{ current_user.id }}><font size="4">Профиль</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href=/><font size="4">Главная</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="/list_message"><font size="4">Сообщения</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href=/friends/{{ current_user.id }}><font size="4">
+                Друзья</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="/invite_friends"><font size="4">Заявки</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="/search"><font size="4">Поиск</font></a>
+            </div>
+        </div>
+    {% endif %}
+    <div class="dialog">
+    	<div class="interlocutor_block">
+    		<div style="margin-top: 10px; margin-left: 20px">
+	    		{% if user.avatar %}
+	                <div class="min_photo" style="float: left;">
+	                	<img src="{{ url_for("static", filename=user.avatar.photo.img_name) }}" alt="" style="max-height: 60px; max-width: 60px; margin: auto;">
+	                </div>
+	            {% else %}
+	                <div class="min_photo" style="float: left;">
+	                    <img src="{{ url_for("static", filename="img/ava_profile_mini.png") }}" alt="" style="max-height: 60px; max-width: 60px; margin: auto;">
+	                </div>
+	            {% endif %}
+	        </div>
+	        <div style="margin-left: 80px; margin-top: 20px">
+	        	<a href=/user/{{ user.id }}><p>{{ user.name }} {{ user.surname }}</p></a>
+	        </div>
+    	</div>
+    	<div id="messages" style="overflow: hidden; padding-bottom: 70px; padding-top: 40px">
+	        {% for item in list_message %}
+	        	{% if item.sender_message_id == current_user.id %}
+	        		<div class="message" style="float: right;">
+	        			<p style="float: right;">{{ item.text }}</p>
+	        		</div>
+	        	{% else %}
+	        		<div class="message" style="float: left;">
+	        			<p style="float: left;">{{ item.text }}</p>
+	        		</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+	    <div class="form_dialog">
+	    	<textarea style="float: left; width: calc(100% - 115px)" minlength="1" maxlength="500" id="message" rows="2"></textarea>
+	        <input type="submit" onclick="javascript:send_message('{{ current_user.id }}', '{{ id }}', true);" class="btn btn-dark" value="Отправить">
+	    </div>
+	</div>
+    {% block scripts %}
+    	<script>
+    		function send_message(sender_id, receiver_id, flag) {
+    			$.post('/send_message', {
+                    sender: sender_id,
+                    receiver: receiver_id,
+                    text: document.getElementById("message").value
+                }).done(function(response) {
+                	update_message(sender_id, receiver_id, flag);
+                	document.getElementById("message").value = '';
+                })
+    		}
+    	</script>
+    	<script>
+    		function update_message(sender_id, receiver_id, flag) {
+    			$.get('/send_message', {
+    				sender: sender_id,
+    				receiver: receiver_id
+    			}).done(function(response) {
+    				document.getElementById('messages').innerHTML = ''
+    				for (var i = 0; i < response['list_message'].length; i++) {
+    					let div = document.createElement('div');
+    					div.className = 'message';
+    					let p = document.createElement('p');
+    					if (sender_id == response['list_message'][i][1]) {
+    						div.style = 'float: right'
+    						p.style = 'float: right'
+    					} else {
+    						p.style = 'float: left'
+    						div.style = 'float: left'
+    					}
+    					p.innerHTML = response['list_message'][i][0];
+    					div.append(p);
+    					$('#messages').append(div); 
+    				}
+    				if (flag) {
+    					$(document).scrollTop(999999);
+    				}
+    			})
+    		}
+    		setInterval(update_message, 1000, {{ current_user.id }}, {{ id }}, false)
+    	</script>
+    	<script>
+            $(window).on('load', function(){
+                $(document).scrollTop(999999)
+            });
+        </script>
+    {% endblock %}
+{% endblock %}

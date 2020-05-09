@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if current_user.is_authenticated %}
+        <div class="left_nav704">
+            <div style="padding-bottom: 10px">
+                <a href=/user/{{ current_user.id }}><font size="4">Профиль</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href=/><font size="4">Главная</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="/list_message"><font size="4">Сообщения</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href=/friends/{{ current_user.id }}><font size="4">
+                Друзья</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="/invite_friends"><font size="4">Заявки</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="/search"><font size="4">Поиск</font></a>
+            </div>
+        </div>
+    {% endif %}
+	{% if current_user.id == id %}
+		<div class="horizontal_friend_nav">
+			<div style="float: left; width: 32vw">
+				<input type="button" class="btn btn-light btn-block" style="color: #4a8dd6" value="Друзья" disabled>
+			</div>
+			<div style="float: left; width: 32vw">
+				<input type="button" class="btn btn-light btn-block" style="color: #4a8dd6" value="Заявки" onclick="window.location='/invite_friends'">
+			</div>
+			<div style="float: left; width: 32vw">
+				<input type="button" class="btn btn-light btn-block" style="color: #4a8dd6" value="Архив" onclick="window.location='/invite_archive'">
+			</div>
+		</div>
+		<div class="vertical_friend_nav">
+			<div>
+				<input type="button" class="btn btn-light btn-block" style="color: #4a8dd6" value="Друзья" disabled>
+			</div>
+			<div>
+				<input type="button" class="btn btn-light btn-block" style="color: #4a8dd6" value="Заявки" onclick="window.location='/invite_friends'">
+			</div>
+			<div>
+				<input type="button" class="btn btn-light btn-block" style="color: #4a8dd6" value="Архив" onclick="window.location='/invite_archive'">
+			</div>
+		</div>
+	{% endif %}
+	<div class="friend" id="list_friend">
+		{% for item in friends %}
+			{% if item.friend_id1 == id %}
+				<div class="friend_info" id=friend{{ item.friend2.id }}>
+					{% if item.friend2.avatar %}
+	                    <div class="friend_photo100">
+	                        <img src="{{ url_for("static", filename=item.friend2.avatar.photo.img_name) }}" alt="" style="max-height: 110px; max-width: 110px; margin: auto;">
+	                    </div>
+	                     <div class="friend_photo50">
+	                        <img src="{{ url_for("static", filename=item.friend2.avatar.photo.img_name) }}" alt="" style="max-height: 60px; max-width: 60px; margin: auto;">
+	                    </div>
+	                {% else %}
+	                	<div class="friend_photo100">
+	                        <img src="{{ url_for("static", filename="img/ava_profile.png") }}" alt="" style="max-height: 100px; max-width: 100px; margin: auto;">
+	                    </div>
+	                    <div class="friend_photo50">
+	                        <img src="{{ url_for("static", filename="img/ava_profile.png") }}" alt="" style="max-height: 50px; max-width: 50px; margin: auto;">
+	                    </div>
+	                {% endif %}
+	                <div class="friend_name">
+						{% if current_user.id == id %}
+							<a style="float: left;" href=/user/{{ item.friend2.id }}><h4>{{ item.friend2.name }} {{ item.friend2.surname }}</h4></a>
+							<a href="javascript:delete_friend('{{ item.friend2.id }}');" style="color: #e15462;"><font size="4"><p align="right" class="delete">Удалить</p></font></a>
+						{% else %}
+							<a href=/user/{{ item.friend2.id }}><h4>{{ item.friend2.name }} {{ item.friend2.surname }}</h4></a>
+						{% endif %}
+						<a href=/message/{{ item.friend_id2 }}><font size="3">Написать сообщение</font></a>
+					</div>
+				</div>
+			{% else %}
+				<div class="friend_info" id=friend{{ item.friend1.id }}>
+					{% if item.friend1.avatar %}
+	                    <div class="friend_photo100">
+	                        <img src="{{ url_for("static", filename=item.friend1.avatar.photo.img_name) }}" alt="" style="max-height: 110px; max-width: 110px; margin: auto;">
+	                    </div>
+	                    <div class="friend_photo50">
+	                        <img src="{{ url_for("static", filename=item.friend1.avatar.photo.img_name) }}" alt="" style="max-height: 60px; max-width: 60px; margin: auto;">
+	                    </div>
+	                {% else %}
+	                	<div class="friend_photo100">
+	                        <img src="{{ url_for("static", filename="img/ava_profile.png") }}" alt="" style="max-height: 100px; max-width: 100px; margin: auto;">
+	                    </div>
+	                    <div class="friend_photo50">
+	                        <img src="{{ url_for("static", filename="img/ava_profile.png") }}" alt="" style="max-height: 50px; max-width: 50px; margin: auto;">
+	                    </div>
+	                {% endif %}
+	                <div class="friend_name">
+						{% if current_user.id == id %}
+							<a style="float: left" href=/user/{{ item.friend1.id }}><h4>{{ item.friend1.name }} {{ item.friend1.surname }}</h4></a>
+							<a href="javascript:delete_friend('{{ item.friend1.id }}');" style="color: #e15462;"><font size="4"><p align="right" style="margin-right: 50px;">Удалить</p></font></a>
+						{% else %}
+							<a href=/user/{{ item.friend1.id }}><h4>{{ item.friend1.name }} {{ item.friend1.surname }}</h4></a>
+						{% endif %}
+						<a href=/message/{{ item.friend_id1 }}><font size="3">Написать сообщение</font></a>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+		{% if friends|length == 0 %}
+			{% if current_user.id == id %}
+				<h4 align="center" style="color: grey; padding-bottom: 10px">У вас пока нет друзей, воспользуйтесь <a href="/search">поиском</a></h4>
+			{% else %}
+				<h4 align="center" style="color: grey; padding-bottom: 10px">У этого пользователя нет друзей</h4>
+			{% endif %}
+		{% endif %}
+	</div>
+	{% block scripts %}
+		<script>
+			function delete_friend(id_friend) {
+				$.post('/delete_friend', {
+					id: id_friend
+				}).done(function(response) {
+					document.getElementById('friend' + id_friend).remove();
+					if ($('div.friend_info').length == 0) {
+						let h4 = document.createElement('h4');
+						let a = document.createElement('a');
+						a.href = '/search';
+						a.innerHTML = 'поиском';
+						h4.align = "center";
+						h4.style = "color: grey; padding-bottom: 10px";
+						h4.innerHTML = "У вас пока нет друзей, воспользуйтесь ";
+						h4.append(a);
+						$('#list_friend').append(h4);
+					}
+				})
+			}
+		</script>
+	{% endblock %}
+{% endblock %}

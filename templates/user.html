@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if current_user.is_authenticated %}
+        <div class="left_nav704">
+            <div style="padding-bottom: 10px">
+                <a href=/user/{{ current_user.id }}><font size="4">Профиль</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href=/><font size="4">Главная</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="/list_message"><font size="4">Сообщения</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href=/friends/{{ current_user.id }}><font size="4">
+                Друзья</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="/invite_friends"><font size="4">Заявки</font></a>
+            </div>
+            <div style="padding-bottom: 10px">
+                <a href="/search"><font size="4">Поиск</font></a>
+            </div>
+        </div>
+    {% endif %}
+    <div class="profile">
+        {% if user.avatar %}
+            <div class="big_photo">
+                <img src="{{ url_for("static", filename=user.avatar.photo.img_name) }}" alt=""class="personPhoto" style="max-height: 220px; max-width: 220px; margin: auto;">
+            </div>
+            <div class="small_photo">
+                <img src="{{ url_for("static", filename=user.avatar.photo.img_name) }}" alt="" class="personPhoto" style="max-height: 106px; max-width: 106px; margin: auto;">
+            </div>
+        {% else %}
+            <div class='big_anon_photo'>
+                <img src="{{ url_for("static", filename="img/ava_profile.png") }}" width="192" height="192" alt="" class="img_profile">
+            </div>
+            <div class='small_anon_photo'>
+                <img src="{{ url_for("static", filename="img/ava_profile.png") }}" width="96" height="96" alt="" class="img_profile">
+            </div>
+        {% endif %}
+        <div class="profile_info">
+            <h4>{{user.name}} {{user.surname}}</h4>
+            <a href=/friends/{{user.id}}><h6>Друзья {{user.friends}}</h6></a> 
+            {% if current_user.id != user.id %}
+                <div style="padding-bottom: 5px">
+                    <input type="button" class="btn btn-secondary" value="Написать сообщение" onclick="window.location='/message/' + {{ user.id }};">
+                </div>
+            {% endif %}
+            {% if invite_flag %}
+                <form action="" method="post">
+                    {{ invite.hidden_tag() }}
+                    {% if type_invite == 0 %}
+                        {{ invite.submit(type="submit", class="btn btn-success", value="Отправить заявку") }}
+                    {% elif type_invite == 1 %}
+                        {{ invite.submit(type="submit", class="btn btn-danger", value="Отменить заявку") }}
+                    {% elif type_invite == 2 %}
+                        {{ invite.submit(type="submit", class="btn btn-success", value="Принять заявку") }}
+                    {% elif type_invite == 3 %}
+                        {{ invite.submit(type="submit", class="btn btn-danger", value="Удалить из друзей") }}
+                    {% endif %}
+                </form>
+            {% endif %}
+        </div>
+        <div class="upload">
+            {% if flag %}
+                <form action="" method="post" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <p style="float: left; padding: 0px; margin-bottom: 0px"> 
+                        {{ form.photo.label }}<br>
+                        {{ form.photo }}<br>
+                    </p>
+                    {{ form.submit(type="submit", class="btn btn-dark btn_upload") }}
+                    {% if form.errors %}
+                        {{ form.errors }}
+                    {% endif %}
+                </form>
+            {% endif %}
+        </div>
+        <div class="profile_photo">
+            {% for item in photos %}
+                <div class="photo_column">
+                    <a data-fancybox="gallery" data-src="#{{ loop.index }}" href="javascript:;">
+                            <img src="{{ url_for("static", filename=item.img_name) }}" alt="" style="padding-right: 13px; padding-top: 13px; max-width: 226px; max-height: 226px">
+                    </a>
+                </div>  
+                <div id="{{ loop.index }}" style="display:none;">
+                    <div class="big_version">
+                        <img src="{{ url_for("static", filename=item.img_name) }}" alt="" class="main_block_photo">
+                    </div>
+                    <div class="comment_like">
+                        <div class="photo_button">
+                            <form name="form1" style="margin-top: 0px">
+                                {% if item.id not in photo_like %}
+                                    <h1 style="float: left; padding-right: 20px"><input type="button" id=btn{{ item.id }} value="{{ likes[item.id] }}", class="btn btn-outline-secondary btn-lg" onclick="javascript:like('{{ item.id }}', 'btn{{ item.id }}');"></h1>
+                                {% else %}
+                                    <h1 style="float: left; padding-right: 20px"><input type="button" id=btn{{ item.id }} value="{{ likes[item.id] }}", class="btn btn-outline-danger btn-lg" onclick="javascript:like('{{ item.id }}', 'btn{{ item.id }}');"></h1>
+                                {% endif %}
+                            </form>
+                            {% if user.id == current_user.id %}
+                                <div class="button_manage">
+                                    <input type="button" class="btn btn-outline-secondary" style="float: right; margin-left: 10px" value="Сделать главной" onclick="javascript:set_avatar('{{ item.id }}');">
+                                    <input type="button" class="btn btn-outline-danger" value="Удалить" style="float: right;" onclick="javascript:delete_photo('{{ item.id }}');">
+                                </div>
+                                <div class="link_manage">
+                                    <a href="javascript:set_avatar('{{ item.id }}');" style="float: right; margin-left: 10px">Сделать главной</a>
+                                    <a href="javascript:delete_photo('{{ item.id }}');" style="float: right; color: #e15462;">Удалить</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="comment_form">
+                            <textarea maxlength="500" id=text{{ item.id }} rows="3" class="comment_area"></textarea>
+                            <input type="submit" onclick="javascript:comment('{{ item.id }}', 'text{{ item.id }}');" class="btn btn-dark" style="margin-bottom: 110px" value="Отправить">
+                        </div>
+                        <div id=list{{ item.id }}>
+                            {% for item_comment in list_comment[item.id] %}
+                                <div id=comment{{ item.id }}{{ item_comment.id }}>
+                                    {% if item_comment.user.avatar %}
+                                        <div class="min_photo" style="float: left;">
+                                            <img src="{{ url_for("static", filename=item_comment.user.avatar.photo.img_name) }}" alt="" style="max-height: 60px; max-width: 60px; margin: auto;">
+                                        </div>
+                                    {% else %}
+                                        <div class="min_photo" style="float: left;">
+                                            <img src="{{ url_for("static", filename="img/ava_profile_mini.png") }}" alt="" style="max-height: 60px; max-width: 60px; margin: auto;">
+                                        </div>
+                                    {% endif %}
+                                    <div class="comment" style="margin-left: 60px">
+                                        {% if item_comment.user_id == current_user.id %}
+                                            <a href="javascript:delete_comment('{{ item.id }}', '{{ item_comment.id }}');" class="button_delete" style="color: #e15462;">удалить</a>
+                                        {% endif %}
+                                        <a href={{ item_comment.user_id }}><p style="margin-bottom: 0px;">{{ item_comment.user.name }} {{ item_comment.user.surname }}</p></a>
+                                        <div class="comment_text">
+                                            <p style="margin-top: 0px">{{ item_comment.text }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% block scripts %}
+        <script>
+            function like(sourceElem, destElem) {
+                $.post('/like', {
+                    id: sourceElem,
+                }).done(function(response) {
+                    document.getElementById(destElem).value = '♥ ' + response['value'];
+                    document.getElementById(destElem).className = response['class'];
+                })
+            }
+        </script>
+        <script>
+            function comment(sourceElem, destElem) {
+                $.post('/comment', {
+                    id: sourceElem,
+                    text: document.getElementById(destElem).value
+                }).done(function(response) {
+                    let comment_div = document.createElement('div');
+                    comment_div.id = 'comment' + sourceElem + response['id_comment'];
+                    let a = document.createElement('a');
+                    let p_a = document.createElement('p');
+                    let button_delete = document.createElement('a');
+                    button_delete.innerHTML = 'удалить'
+                    button_delete.href = "javascript:delete_comment('" + sourceElem + "', '" + response['id_comment'] + "');";
+                    button_delete.className = "button_delete";
+                    button_delete.style = "color: #e15462;";
+                    p_a.innerHTML = response['name'] + ' ' + response['surname'];
+                    p_a.style.marginBottom = '0px';
+                    a.append(p_a);
+                    a.href = response['id'];
+                    let p = document.createElement('p');
+                    p.style.marginTop = '0px';
+                    p.innerHTML = document.getElementById(destElem).value;
+                    let div = document.createElement('div');
+                    div.className = 'comment';
+                    div.style = 'margin-left: 60px';
+                    let div_photo = document.createElement('div');
+                    div_photo.className = 'min_photo';
+                    div_photo.style = 'float: left';
+                    let div_text = document.createElement('div');
+                    div_text.className = 'comment_text';
+                    div_text.append(p);
+                    let img = document.createElement('img');
+                    {% if current_user2.avatar %}
+                        img.src = "{{ url_for("static", filename=current_user2.avatar.photo.img_name) }}";
+                    {% else %}
+                        img.src = '{{ url_for("static", filename="img/ava_profile_mini.png") }}';
+                    {% endif %}
+                    img.style = 'max-height: 60px; max-width: 60px; margin: auto';
+                    div.prepend(div_text);
+                    div.prepend(a);
+                    div.prepend(button_delete);
+                    div_photo.prepend(img);
+                    comment_div.prepend(div);
+                    comment_div.prepend(div_photo);
+                    $('#list' + sourceElem).prepend(comment_div);
+                    document.getElementById(destElem).value = '';
+                })
+            }
+        </script>
+        <script>
+            function set_avatar(id_photo) {
+                $.post('/set_avatar', {
+                    id_photo: id_photo
+                }).done(function(response) {
+                    location.reload();
+                })
+            }
+        </script>
+        <script>
+            function delete_comment(id_photo, id_comment) {
+                $.post('/delete_comment', {
+                    id: id_comment
+                }).done(function(response) {
+                    document.getElementById('comment' + id_photo + id_comment).remove();
+                })
+            }
+        </script>
+        <script>
+            function delete_photo(id_photo) {
+                $.post('/delete_photo', {
+                    id: id_photo
+                }).done(function(response) {
+                    location.href = '/user/' + {{ current_user.id }};
+                })
+            }
+        </script>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,1048 @@
+.register {
+	width: 640px;
+	margin: auto;
+	-moz-box-sizing: border-box; /* Для Firefox */
+    -webkit-box-sizing: border-box; /* Для Safari и Chrome */
+    box-sizing: border-box; /* Для IE и Opera */
+}
+
+.index2 {
+	width: 1280px;
+	margin: auto;
+	-moz-box-sizing: border-box; /* Для Firefox */
+    -webkit-box-sizing: border-box; /* Для Safari и Chrome */
+    box-sizing: border-box; /* Для IE и Opera */
+}
+
+.index { 
+	width: 512px;
+	margin-left: auto;
+ 	margin-right: 64px;
+	-moz-box-sizing: border-box; /* Для Firefox */
+    -webkit-box-sizing: border-box; /* Для Safari и Chrome */
+    box-sizing: border-box; /* Для IE и Opera */
+}
+
+.leftimg {
+	float: left;
+	margin-left: 64px;
+}
+
+.ava_round {
+    border-radius: 25px; /* Радиус скругления */
+    border: 0px solid #fff; /* Параметры рамки */
+}
+
+.img_profile {
+	float: left;
+	border-radius: 96px; /* Радиус скругления */
+}
+
+.profile {
+	width: 704px;
+	margin: auto;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.profile_info {
+	width: 512px;
+	height: 196px;
+	margin-right: auto;
+	-moz-box-sizing: border-box; /* Для Firefox */
+    -webkit-box-sizing: border-box; /* Для Safari и Chrome */
+    box-sizing: border-box;
+	float: left;
+	padding-left: 64px;
+}
+
+.upload{
+	width: 704px;
+	margin: auto;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.profile_photo{
+	width: 704px;
+	padding-top: 20px;
+	margin: auto;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.big_version {
+	display: flex;
+  	align-items: center;
+  	justify-content: center;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: black;
+}
+
+.left_nav704 {
+	position: fixed;
+	left: calc(((100vw - 704px) / 2) - 150px);
+	width: 100px;
+}
+
+.left_nav600 {
+	position: fixed;
+	left: calc(((100vw - 704px) / 2) - 150px);
+	width: 100px;
+}
+
+.vertical_friend_nav {
+	position: fixed;
+	width: 150px;
+	left: calc(724px + ((100vw - 704px) / 2));
+}
+
+.horizontal_friend_nav {
+	display: none
+}
+
+.photo_column {
+	width: 226px;
+	height: 226px;
+	float: left;
+	text-align: center;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.comment_like { 
+	width: 600px;
+	margin: auto;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.comment_form {
+	width: 600px;
+	height: 100px;
+	margin: auto;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.friend {
+	width: 704px;
+	margin: auto;
+	padding-left: 20px;
+	padding-top: 10px;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.message_list {
+	width: 704px;
+	margin: auto;
+	padding-left: 20px;
+	padding-top: 10px;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.search {
+	width: 600px;
+	min-height: 60px;
+	margin: auto;
+	padding-left: 20px;
+	padding-top: 10px;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 5px;
+}
+.index_photo {
+	width: 600px;
+	margin: auto;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.block_photo {
+	width: 600px;
+	background-color: white;
+	margin: auto;
+	margin-bottom: 20px;
+	word-break: break-all;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.dialog { 
+	width: 600px;
+	margin: auto;
+	min-height: calc(100vh - 100px);
+	word-break: break-all;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: white;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.form_dialog {
+	position: fixed; 
+	bottom: 0; 
+	left: calc((100vw - 600px) / 2);;
+	background-color: #fafbfc; 
+	width: 600px;
+}
+
+.interlocutor_block {
+	position: fixed; 
+	top: 76px; 
+	left: calc((100vw - 600px) / 2);
+	background-color: #fafbfc; 
+	width: 600px; 
+}
+
+.message {
+	width: 400px;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.small_anon_photo {
+	display: none
+}
+
+.small_photo {
+	display: none
+}
+
+.big_photo {
+	float: left;
+	width: 192px;
+	height: 192px;
+	overflow: hidden;
+	border-radius: 96px;
+	background-color: black;
+	text-align: center;
+}
+
+.min_photo {
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+	border-radius: 50%;
+	background-color: black;
+	text-align: center;
+}
+
+.friend_photo {
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	border-radius: 50%;
+	float: left;
+	background-color: black;
+	text-align: center;
+}
+
+.friend_photo50 {
+	display: none
+}
+
+.friend_photo100 {
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	border-radius: 50%;
+	float: left;
+	background-color: black;
+	text-align: center;
+}
+
+.friend_info {
+	width: 100%;
+	height: 120px;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.comment {
+	width: 500px;
+	margin: auto;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.comment_text {
+	width: 400px;
+	word-break: break-all;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.button_delete {
+	display: none;
+	float: right;
+}
+
+.comment:hover .button_delete {
+	display: block;
+}
+
+.delete {
+	margin-right: 50px;
+}
+
+.small_nav_logo {
+	display: none;
+}
+
+.small_nav_btn {
+	display: none;
+}
+
+.main_block_photo {
+	max-width: 600px; 
+	max-height: 600px; 
+}	
+
+.nav_dropmenu {
+	display: none
+}
+
+.dropmenu_true {
+	display: none
+}
+
+.friend_name {
+	margin-left: 110px
+}
+
+.btn_upload {
+	margin-top: 20px;
+}
+
+.last_message {
+	width: 50%;
+}
+
+.input_surname {
+	width: 250px; 
+	float: left; 
+	padding-right: 10px;
+}
+
+.input_name {
+	width: 250px;
+	float: left;
+}
+
+.comment_area {
+	width: calc(100% - 110px)
+}
+
+.photo_button {
+	width: 600px; 
+	height: 70px; 
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+
+.link_manage {
+	display: none;
+}
+
+@media screen and (max-width: 1050px) and (min-width: 819px) {
+	.index_photo {
+		width: 600px;
+		margin-left: 200px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	.search { 
+		width: 600px;
+		min-height: 60px;
+		margin-left: 200px;		
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.input_surname {
+		width: 45%; 
+		float: left; 
+		padding-right: 10px;
+	}
+	.input_name {
+		width: 45%;
+		float: left;
+	}
+	.dialog { 
+		width: 600px;
+		margin-left: 200px;
+		min-height: calc(100vh - 100px);
+		word-break: break-all;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    padding-right: 10px;
+	    padding-left: 10px;
+	}
+	.form_dialog {
+		position: fixed; 
+		bottom: 0; 
+		left: 200px;
+		background-color: #fafbfc; 
+		width: 600px;
+	}
+	.interlocutor_block {
+		position: fixed; 
+		top: 76px; 
+		left: 200px;
+		background-color: #fafbfc; 
+		width: 600px; 
+	}
+	.left_nav600 {
+		position: fixed;
+		left: 50px;
+		width: 100px;
+	}
+}
+
+@media screen and (max-width: 1050px) and (min-width: 910px) {
+	.left_nav704 {
+		position: fixed;
+		left: 50px;
+		width: 100px;
+	}
+	.profile {
+		width: 704px;
+		margin-left: 200px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	.message_list {
+		width: 704px;
+		margin-left: 200px;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.friend {
+		width: 540px;
+		margin-left: 200px;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.vertical_friend_nav {
+		position: fixed;
+		width: 150px;
+		left: calc(200px + 560px);
+	}
+}
+
+@media screen and (max-width: 909px) and (min-width: 819px) {
+	.left_nav704 {
+		position: fixed;
+		left: 0px;
+		width: 100px;
+	}
+	.profile {
+		width: 704px;
+		margin-left: 110px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	.message_list {
+		width: 704px;
+		margin-left: 110px;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.friend {
+		width: 500px;
+		margin-left: 110px;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.vertical_friend_nav {
+		position: fixed;
+		width: 150px;
+		left: calc(110px + 520px);
+	}
+}
+
+@media screen and (max-width: 819px) {
+	.left_nav600 {
+		display: none;
+	}
+	.left_nav704 {
+		display: none;
+	}
+	.nav_dropmenu {
+		display: inline;
+	}
+	.dropmenu_true {
+		display: inline
+	}
+	.dropmenu_false {
+		display: none
+	}
+	.delete {
+		margin-right: 20px;
+	}
+}
+
+@media screen and (max-width: 819px) and (min-width: 600px) {
+	.friend {
+		width: 80vw;
+		margin-left: 20px;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.search {
+		width: 90%;
+		min-height: 60px;
+		margin-left: auto;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.input_surname {
+		width: 45%; 
+		float: left; 
+		padding-right: 10px;
+	}
+	.input_name {
+		width: 45%;
+		float: left;
+	}
+	.message_list {
+		width: 90vw;
+		margin-left: 5%;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.vertical_friend_nav {
+		position: fixed;
+		width: 100px;
+		left: calc(30px + 80vw);
+	}
+}
+
+@media screen and (max-width: 599px) and (min-width: 500px) {
+	.friend_photo50 {
+		width: 50px;
+		height: 50px;
+		overflow: hidden;
+		border-radius: 50%;
+		float: left;
+		background-color: black;
+		text-align: center;
+		display: inline;
+	}
+	.friend_photo100 {
+		display: none
+	}
+	.friend_name {
+		margin-left: 60px
+	}
+	.friend {
+		width: 80vw;
+		margin-left: 10px;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.search {
+		width: 90%;
+		min-height: 60px;
+		margin-left: 5%;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.input_surname {
+		width: 45%; 
+		float: left; 
+		padding-right: 10px;
+	}
+	.input_name {
+		width: 45%;
+		float: left;
+	}
+	.message_list {
+		width: 90vw;
+		margin-left: 5%;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.vertical_friend_nav {
+		position: fixed;
+		width: 80px;
+		left: calc(20px + 80vw);
+	}
+	.friend_info {
+		width: 100%;
+		height: 90px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+}
+
+@media screen and (max-width: 499px) and (min-width: 400px) {
+	.friend_photo50 {
+		width: 50px;
+		height: 50px;
+		overflow: hidden;
+		border-radius: 50%;
+		float: left;
+		background-color: black;
+		text-align: center;
+		display: inline;
+	}
+	.friend_photo100 {
+		display: none
+	}
+	.friend_name {
+		margin-left: 60px
+	}
+	.friend {
+		width: 90vw;
+		margin-left: 10px;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.search {
+		width: 90%;
+		min-height: 60px;
+		margin-left: 5%;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.input_surname {
+		width: 45%; 
+		float: left; 
+		padding-right: 10px;
+	}
+	.input_name {
+		width: 45%;
+		float: left;
+	}
+	.message_list {
+		width: 90vw;
+		margin-left: 5%;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.vertical_friend_nav {
+		display: none
+	}
+	.horizontal_friend_nav {
+		width: 90%;
+		height: 38px;
+		margin-left: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+		display: inline-block;
+	}
+	.friend_info {
+		width: 100%;
+		height: 90px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+}
+
+@media screen and (max-width: 399px) {
+	.friend_photo50 {
+		display: none
+	}
+	.friend_photo100 {
+		display: none
+	}
+	.friend_name {
+		margin-left: 0px
+	}
+	.friend {
+		width: 98vw;
+		margin-left: 1%;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.search {
+		width: 90%;
+		min-height: 60px;
+		margin-left: auto;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.input_surname {
+		width: 45%; 
+		float: left; 
+		padding-right: 10px;
+	}
+	.input_name {
+		width: 45%;
+		float: left;
+	}
+	.message_list {
+		width: 90vw;
+		margin-left: 5%;
+		padding-left: 20px;
+		padding-top: 10px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    border-radius: 5px;
+	}
+	.vertical_friend_nav {
+		display: none
+	}
+	.horizontal_friend_nav {
+		width: 96%;
+		height: 38px;
+		margin-left: 2%;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+		display: inline-block;
+	}
+	.friend_info {
+		width: 100%;
+		height: 90px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	.delete {
+		margin-right: 10px;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.main_block_photo {
+		max-width: 100%; 
+		max-height: 100%; 
+	}
+	.block_photo {
+		width: 90%;
+		background-color: white;
+		margin: auto;
+		margin-bottom: 20px;
+		word-break: break-all;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    border-radius: 5px;
+	}
+	.comment_like { 
+		width: 100%;
+		margin: auto;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	.comment_form {
+		width: 100%;
+		height: 140px;
+		margin: auto;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	.index_photo {
+		width: 100%;
+		margin: auto;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	.dialog { 
+		width: 90%;
+		margin-left: 5%;
+		min-height: calc(100vh - 100px);
+		word-break: break-all;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	    background-color: white;
+	    padding-right: 10px;
+	    padding-left: 10px;
+	}
+	.form_dialog {
+		position: fixed; 
+		bottom: 0; 
+		left: 5%;
+		background-color: #fafbfc; 
+		width: 90%;
+	}
+	.interlocutor_block {
+		position: fixed; 
+		top: 76px; 
+		left: 5%;
+		background-color: #fafbfc; 
+		width: 90%; 
+	}
+	.message {
+		width: 66%;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	.register {
+		width: 90%;
+		margin: auto;
+		-moz-box-sizing: border-box; /* Для Firefox */
+	    -webkit-box-sizing: border-box; /* Для Safari и Chrome */
+	    box-sizing: border-box; /* Для IE и Opera */
+	}
+    .comment_area {
+    	width: 100%
+    }
+    .comment {
+		width: calc(100% - 60px);
+		margin: auto;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	.comment_text {
+		width: calc(100% - 50px);
+		word-break: break-all;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	.photo_button {
+		width: 100%; 
+		height: 70px; 
+		-moz-box-sizing: border-box; 
+		-webkit-box-sizing: border-box; 
+		box-sizing: border-box;
+	}
+	.button_manage {
+		display: none
+	}
+	.link_manage {
+		display: inline;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.profile {
+		width: 90%;
+		margin-left: 10%;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	.profile_info {
+		width: calc(100% - 192px);
+		height: 196px;
+		margin-right: auto;
+		-moz-box-sizing: border-box; /* Для Firefox */
+	    -webkit-box-sizing: border-box; /* Для Safari и Chrome */
+	    box-sizing: border-box;
+		float: left;
+		padding-left: 20px;
+	}
+	.upload {
+		width: 100%;
+		margin: auto;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	.profile_photo {
+		width: 100%;
+		padding-top: 20px;
+		margin: auto;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+}
+
+@media screen and (max-width: 415px) {
+	.btn_upload {
+		margin-top: 0px;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	.small_anon_photo {
+		display: inline;
+	}
+	.small_photo {
+		float: left;
+		width: 96px;
+		height: 96px;
+		overflow: hidden;
+		border-radius: 50%;
+		background-color: black;
+		text-align: center;
+		display: inline;
+	}
+	.big_photo {
+		display: none
+	}
+	.big_anon_photo {
+		display: none
+	}
+	.profile_info {
+		width: calc(100% - 96px);
+		height: auto;
+		margin-right: auto;
+		-moz-box-sizing: border-box; /* Для Firefox */
+	    -webkit-box-sizing: border-box; /* Для Safari и Chrome */
+	    box-sizing: border-box;
+		float: left;
+		padding-left: 10px;
+	}
+}
+
+@media screen and (max-width: 1279px) {
+	.main_photo {
+		display: none;
+	}
+	.index2 {
+		width: 100%;
+		margin: auto;
+		-moz-box-sizing: border-box; /* Для Firefox */
+	    -webkit-box-sizing: border-box; /* Для Safari и Chrome */
+	    box-sizing: border-box; /* Для IE и Opera */
+	}
+	.index { 
+		width: 512px;
+		margin: auto;
+		-moz-box-sizing: border-box; /* Для Firefox */
+	    -webkit-box-sizing: border-box; /* Для Safari и Chrome */
+	    box-sizing: border-box; /* Для IE и Opera */
+	}
+}
+
+@media screen and (max-width: 513px) {
+	.big_nav_logo {
+		display: none;
+	}
+	.small_nav_logo {
+		display: inline;
+	}
+	.big_nav_btn {
+		display: none;
+	}
+	.small_nav_btn {
+		display: inline;
+	}
+	.index { 
+		width: 95%;
+		margin: auto;
+		-moz-box-sizing: border-box; /* Для Firefox */
+	    -webkit-box-sizing: border-box; /* Для Safari и Chrome */
+	    box-sizing: border-box; /* Для IE и Opera */
+	}
+}

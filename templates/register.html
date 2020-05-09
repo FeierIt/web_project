@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" 
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+    crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href=" {{ url_for("static", filename="css/style.css") }}">
+     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <title>{{ title }}</title>
+</head>
+	<body style="background-color: #edeef0">
+		<div class="register">
+			<h1 align="center">Регистрация</h1>
+			<form action="" method="post">
+			    {{ form.hidden_tag() }}
+			    {{ form.csrf_token }}
+			    {% if message %}
+				    <p class="alert alert-danger" role="alert">
+						{{message}}
+					</p>
+				{% endif %}
+			    <p class="marg">
+			        {{ form.email.label }}<br>
+			        {{ form.email(class="form-control", type="email", placeholder='Почта') }}<br>
+			        {% for error in form.email.errors %}
+			            <p class="alert alert-danger" role="alert">
+			                {{ error }}
+			            </p>
+			        {% endfor %}
+			    </p>
+    			<p class="marg">
+        			{{ form.name.label }}<br>
+        			{{ form.name(class="form-control", placeholder='Имя') }}<br>
+        			{% for error in form.name.errors %}
+            			<p class="alert alert-danger" role="alert">
+                			{{ error }}
+            			</p>
+        			{% endfor %}
+    			</p>
+    			<p class="marg">
+        			{{ form.surname.label }}<br>
+        			{{ form.surname(class="form-control", placeholder='Фамилия') }}<br>
+        			{% for error in form.surname.errors %}
+            			<p class="alert alert-danger" role="alert">
+                			{{ error }}
+            			</p>
+        			{% endfor %}
+    			</p>
+    			<p class="marg">
+        			{{ form.birthday.label }}<br>
+        			{{ form.birthday(class="form-control", type="date") }}<br>
+        			{% for error in form.birthday.errors %}
+            			<p class="alert alert-danger" role="alert">
+                			{{ error }}
+            			</p>
+        			{% endfor %}
+    			</p>
+    			<p class="marg">
+        			{{ form.password.label }}<br>
+       			 	{{ form.password(class="form-control", type="password", placeholder='Пароль') }}<br>
+        			{% for error in form.password.errors %}
+            			<p class="alert alert-danger" role="alert">
+                			{{ error }}
+            			</p>
+        			{% endfor %}
+   				</p>
+    			<p class="marg">
+        			{{ form.password_again.label }}<br>
+        			{{ form.password_again(class="form-control", type="password", placeholder='Повторите пароль') }}<br>
+        			{% for error in form.password_again.errors %}
+            			<p class="alert alert-danger" role="alert">
+                			{{ error }}
+            			</p>
+        			{% endfor %}
+    			</p>
+    			<p class="marg">{{ form.submit(type="submit", class="btn btn-dark") }}</p>
+			</form>
+		</div>
+	</body>
+</html>
