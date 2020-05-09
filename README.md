@@ -4,5 +4,9 @@
 # API
 * Фотографии
   * **/api/photo/<int:photo_id>** - получения информации о фотографии по её id.
-  * **/api/delete_photo/<int:photo_id>&<email>&<password>** - удаление фотографии по id.
-  * **/api/get_photos/<int:user_id>** - все фотографии по id пользователя.
+    * **/api/delete_photo/<int:photo_id>&<email>&<password>** - удаление фотографии по id.
+    * **/api/get_photos/<int:user_id>** - все фотографии по id пользователя.
+* Комментарии
+ * **/api/comment/<int:comment_id>** - информации комментария по его id.
+ * **/api/delete_comment/<int:comment_id>&<email>&<password>** - удаление комментария по id.
+ * **/api/comments** - 
