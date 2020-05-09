@@ -1,3 +1,3 @@
 # Socialize
 ![](https://github.com/f31er/web_project/blob/master/static/img/big_logo.png)  
-Общайтесь
+**Socialize** - это социальная сеть для **общения**. В ней вы сможете делиться своими **фотографиями** и делиться своим мнением в **комментариях**
