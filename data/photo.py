@@ -8,6 +8,7 @@ from sqlalchemy_serializer import SerializerMixin
 
 
 class Photo(SqlAlchemyBase, UserMixin, SerializerMixin):
+    # Таблица с фотографиями
     __tablename__ = 'photo'
     
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)

@@ -29,7 +29,8 @@ login_manager = LoginManager()
 login_manager.init_app(app) 
 
 
-def sort_friends(friends, id):
+def sort_friends(friends, id): 
+    # Сортировка друзей в алфавитном порядке
     if len(friends) <= 1:
         return friends
     q = random.choice(friends)
@@ -61,6 +62,7 @@ def sort_friends(friends, id):
 @app.route('/delete_photo', methods=['POST'])
 @login_required
 def delete_photo():
+    # Удаление фотографии
     session = db_session.create_session()
     if current_user.avatar is not None and current_user.avatar.photo_id == int(request.form['id']):
         user = session.query(User).get(current_user.id) 
@@ -78,6 +80,7 @@ def delete_photo():
 @app.route('/delete_comment', methods=['POST'])
 @login_required
 def delete_comment():
+    # Удаление комментария
     session = db_session.create_session() 
     session.delete(session.query(Comment).get(request.form['id']))
     session.commit()
@@ -87,6 +90,7 @@ def delete_comment():
 @app.route('/delete_friend', methods=['POST'])
 @login_required
 def delete_friend():
+    # Удаления друзей
     session = db_session.create_session() 
     invite_db = Invite(
         sender_id=request.form['id'],
@@ -116,6 +120,7 @@ def delete_friend():
 @app.route('/set_avatar', methods=['POST'])
 @login_required
 def set_avatar():
+    # Установка аватара
     session = db_session.create_session() 
     avatar_db = Avatar(
         photo_id=int(request.form['id_photo'])
@@ -131,6 +136,7 @@ def set_avatar():
 @app.route('/send_invite', methods=['POST'])
 @login_required
 def send_invite():
+    # Отправка заявки
     session = db_session.create_session() 
     invite = session.query(Invite).filter(Invite.sender_id == int(request.form['id']),
                                           Invite.receiver_id == current_user.id).first()  
@@ -148,6 +154,7 @@ def send_invite():
 @app.route('/cancel_invite', methods=['POST'])
 @login_required
 def cancel_invite():
+    # Отмена заявки
     session = db_session.create_session() 
     invite = session.query(Invite).filter(Invite.sender_id == current_user.id,
                                           Invite.receiver_id == int(request.form['id'])).first()  
@@ -161,6 +168,7 @@ def cancel_invite():
 @app.route('/search_friend', methods=['POST'])
 @login_required
 def search_friend():
+    # Поиск друзей
     session = db_session.create_session()
     name = request.form['name'].lower().title()
     surname = request.form['surname'].lower().title()
@@ -197,6 +205,7 @@ def search_friend():
 @app.route('/send_message', methods=['GET', 'POST'])
 @login_required
 def message():
+    # Отправка сообщения
     session = db_session.create_session()
     if request.method == 'POST':
         message_db = Message(
@@ -242,6 +251,7 @@ def message():
 @app.route('/like', methods=['POST'])
 @login_required
 def like():
+    # Установка лайка
     session = db_session.create_session()
     photo_like = []    
     for i in list(session.query(Like).filter(Like.user_id == current_user.id)):
@@ -270,6 +280,7 @@ def like():
 @app.route('/accept_invite', methods=['POST'])
 @login_required
 def accept_invite():
+    # Одобрение заявки
     session = db_session.create_session()
     invite = session.query(Invite).filter(Invite.sender_id == request.form['id'],
                                           Invite.receiver_id == current_user.id).first()
@@ -292,6 +303,7 @@ def accept_invite():
 @app.route('/add_archive', methods=['POST'])
 @login_required
 def add_archive():
+    # Добавления заявки в архив
     session = db_session.create_session()
     invite = session.query(Invite).get(request.form['id'])
     invite.archive = True         
@@ -302,6 +314,7 @@ def add_archive():
 @app.route('/first_comments', methods=['GET'])
 @login_required
 def first_comments():
+    # Возвращает первые 3 комментария под фотографией
     session = db_session.create_session()
     all_comments = list(session.query(Comment).filter(Comment.photo_id == 
                                                       request.args.get('id')))
@@ -317,6 +330,7 @@ def first_comments():
 @app.route('/comment', methods=['POST'])
 @login_required
 def comment():
+    # Отправление комментария
     session = db_session.create_session()
     comment_db = Comment(
         text=request.form['text'],
@@ -332,6 +346,7 @@ def comment():
 @app.route('/message/<int:id>', methods=['GET', 'POST'])
 @login_required
 def chat(id):
+    # Обработчик чата
     session = db_session.create_session()
     if not (current_user.id != id and session.query(User).filter(User.id == id).first()):
         return abort(404)
@@ -350,6 +365,7 @@ def chat(id):
 @app.route('/list_message', methods=['GET'])
 @login_required
 def list_dialog():
+    # Обработчик списка начатых чатов
     session = db_session.create_session()
     list_dialog = list(session.query(Dialog).filter(
         (Dialog.friend_dialog_id1 == current_user.id) |
@@ -369,6 +385,7 @@ def list_dialog():
 @app.route('/invite_friends', methods=['GET'])
 @login_required
 def invite_friends():
+    # Обработчик списка заявок в друзья
     session = db_session.create_session()
     invite = list(session.query(Invite).filter((Invite.receiver_id == current_user.id)))
     current_user2 = session.query(User).filter(User.id == current_user.id).first()
@@ -379,6 +396,7 @@ def invite_friends():
 @app.route('/invite_archive', methods=['GET'])
 @login_required
 def invite_archive():
+    # Обработчик списка архива заявок в друзья
     session = db_session.create_session()
     invite = list(session.query(Invite).filter((Invite.receiver_id == current_user.id)))
     current_user2 = session.query(User).filter(User.id == current_user.id).first()
@@ -389,6 +407,7 @@ def invite_archive():
 @app.route('/friends/<int:id>', methods=['GET', 'POST'])
 @login_required
 def friends(id):
+    # Обработчик списка друзей пользователя
     session = db_session.create_session()
     friends = list(session.query(Friends).filter((Friends.friend_id1 == id) |
                                                  (Friends.friend_id2 == id)))
@@ -401,6 +420,7 @@ def friends(id):
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
+    # Обработчик поиска
     session = db_session.create_session()
     current_user2 = session.query(User).filter(User.id == current_user.id).first()
     return render_template('search.html', title='Поиск', current_user2=current_user2)
@@ -409,6 +429,7 @@ def search():
 @app.route('/user/<int:id>', methods=['GET', 'POST'])
 @login_required
 def user(id):
+    # Обработчик страницы пользователя
     flag = False
     invite_flag = False
     session = db_session.create_session()
@@ -515,6 +536,7 @@ def user(id):
 
 @app.route('/register', methods=['GET', 'POST'])
 def reqister():
+    # Обработчик страницы с регистрации
     if current_user.is_authenticated:
         return redirect("/")    
     form = RegisterForm()
@@ -551,6 +573,7 @@ def reqister():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    # Обработчик страницы входа
     if current_user.is_authenticated:
         return redirect("/")
     form = LoginForm()
@@ -569,12 +592,14 @@ def login():
 @app.route('/logout')
 @login_required
 def logout():
+    # Выход пользователя
     logout_user()
     return redirect("/")
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    # Обработчик главной страницы
     session = db_session.create_session()
     form = LoginForm()
     if form.validate_on_submit():
@@ -585,7 +610,8 @@ def index():
         return render_template('index.html',
                                message="Неправильный логин или пароль",
                                form=form)
-    if current_user.is_authenticated:
+    if current_user.is_authenticated: 
+        # Если пользователь вошел, то на главной отображаются фотографии друзей
         friends = list(session.query(Friends).filter((Friends.friend_id1 == current_user.id) |
                                                      (Friends.friend_id2 == current_user.id)))
         list_id = []
@@ -621,6 +647,7 @@ def load_user(user_id):
 
 @app.errorhandler(404)
 def not_found(error):
+    # Обработчик ошибки 404
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 

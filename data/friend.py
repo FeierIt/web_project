@@ -8,6 +8,7 @@ from sqlalchemy_serializer import SerializerMixin
 
 
 class Friends(SqlAlchemyBase, UserMixin, SerializerMixin):
+    # Таблица с друзьями
     __tablename__ = 'friends'
         
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)

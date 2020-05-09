@@ -13,6 +13,7 @@ parser.add_argument('email', required=True)
 
 class CommentPhotoResource(Resource):
     def get(self, photo_id):
+        # Получение всех комментариев под фотографией
         abort_if_photo_not_found(photo_id)
         session = db_session.create_session()
         comments = session.query(Comment).filter(Comment.photo_id == photo_id)
@@ -26,6 +27,7 @@ class CommentPhotoResource(Resource):
     
 class CommentResource(Resource):
     def get(self, comment_id):
+        # Получение комментария по его id
         abort_if_comment_not_found(comment_id)
         session = db_session.create_session()
         comment = session.query(Comment).get(comment_id)
@@ -38,6 +40,7 @@ class CommentResource(Resource):
 
 class CommentListResource(Resource):   
     def post(self):
+        # Отправка комментария
         args = parser.parse_args()
         abort_if_photo_not_found(args['photo_id'])
         session = db_session.create_session()      
@@ -56,6 +59,7 @@ class CommentListResource(Resource):
         
 class CommentDeleteResource(Resource):      
     def delete(self, comment_id, email, password):
+        # Удаления комментария по его id
         abort_if_comment_not_found(comment_id)    
         session = db_session.create_session()      
         user = session.query(User).filter(User.email == email).first()
@@ -70,6 +74,7 @@ class CommentDeleteResource(Resource):
         
 
 def abort_if_photo_not_found(photo_id):
+    # Возвращает ошибку 404 если фото не найдено
     session = db_session.create_session()
     photo = session.query(Photo).get(photo_id)
     if not photo:
@@ -77,6 +82,7 @@ def abort_if_photo_not_found(photo_id):
         
     
 def abort_if_comment_not_found(comment_id):
+    # Возвращает ошибку 404 если комментарий не найден
     session = db_session.create_session()
     comment = session.query(Comment).get(comment_id)
     if not comment:

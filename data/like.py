@@ -8,6 +8,7 @@ from sqlalchemy_serializer import SerializerMixin
 
 
 class Like(SqlAlchemyBase, UserMixin, SerializerMixin):
+    # Таблица с лайками
     __tablename__ = 'likes'
     
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)

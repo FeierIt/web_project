@@ -8,6 +8,7 @@ from sqlalchemy_serializer import SerializerMixin
 
 
 class Invite(SqlAlchemyBase, UserMixin, SerializerMixin):
+    # Таблица с заявками
     __tablename__ = 'invite'
         
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)

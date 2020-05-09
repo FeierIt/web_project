@@ -7,6 +7,7 @@ from sqlalchemy_serializer import SerializerMixin
 
 
 class Avatar(SqlAlchemyBase, UserMixin, SerializerMixin):
+    # “аблица с аватарками пользователей
     __tablename__ = 'avatar'
     
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)

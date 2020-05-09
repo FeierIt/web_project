@@ -5,6 +5,7 @@ from flask_wtf.file import FileField, FileAllowed, FileRequired
 
 
 class UploadPhoto(FlaskForm):
+    # Форма загрузки фотографии
     photo = FileField('Загрузить фото', validators=[
         FileAllowed(['jpg', 'png', 'jpeg'], 'Images only'),
         FileRequired()

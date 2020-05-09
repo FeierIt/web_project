@@ -7,6 +7,7 @@ from wtforms.fields.html5 import EmailField
 
 
 class RegisterForm(FlaskForm):
+    # Форма регистрации
     email = EmailField('Почта', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     password_again = PasswordField('Подтверждение пароля', validators=[DataRequired()])

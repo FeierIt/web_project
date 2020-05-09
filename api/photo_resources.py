@@ -11,6 +11,7 @@ from flask import url_for
 
 class PhotoUserResource(Resource):
     def get(self, user_id):
+        # Получение информации о фотографиях пользователя
         abort_if_users_not_found(user_id)
         session = db_session.create_session()
         photos = session.query(Photo).filter(Photo.user_id == user_id)
@@ -24,6 +25,7 @@ class PhotoUserResource(Resource):
     
 class PhotoResource(Resource):
     def get(self, photo_id):
+        # Получение информации фотографии по её id
         abort_if_photo_not_found(photo_id)
         session = db_session.create_session()
         photo = session.query(Photo).get(photo_id)
@@ -35,6 +37,7 @@ class PhotoResource(Resource):
     
 class PhotoDeleteResource(Resource):
     def delete(self, photo_id, email, password):
+        # Удаление фотографии по её id
         abort_if_photo_not_found(photo_id)    
         session = db_session.create_session()      
         user = session.query(User).filter(User.email == email).first()
@@ -57,6 +60,7 @@ class PhotoDeleteResource(Resource):
 
 
 def abort_if_users_not_found(users_id):
+    # Возвращает ошибку 404 если пользователь не найден
     session = db_session.create_session()
     user = session.query(User).get(users_id)
     if not user:
@@ -64,6 +68,7 @@ def abort_if_users_not_found(users_id):
         
 
 def abort_if_photo_not_found(photo_id):
+    # Возвращает ошибку 404 если фото не найдено
     session = db_session.create_session()
     photo = session.query(Photo).get(photo_id)
     if not photo:

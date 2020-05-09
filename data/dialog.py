@@ -8,6 +8,7 @@ from sqlalchemy_serializer import SerializerMixin
 
 
 class Dialog(SqlAlchemyBase, UserMixin, SerializerMixin):
+    # Таблица с начатыми диалогами
     __tablename__ = 'dialog'
         
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)

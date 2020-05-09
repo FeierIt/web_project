@@ -8,6 +8,7 @@ from sqlalchemy_serializer import SerializerMixin
 
 
 class Comment(SqlAlchemyBase, UserMixin, SerializerMixin):
+    # Таблица с комментариями
     __tablename__ = 'comment'
     
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)

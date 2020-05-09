@@ -7,6 +7,7 @@ from flask_restful import reqparse, abort, Api, Resource
 
 class UserResource(Resource):
     def get(self, user_id):
+        # Получение информации о пользователе по его id
         abort_if_users_not_found(user_id)
         session = db_session.create_session()
         users = session.query(User).get(user_id)
@@ -18,6 +19,7 @@ class UserResource(Resource):
     
 class UsersListResource(Resource):
     def get(self):
+        # Получение всех пользователей
         session = db_session.create_session()
         users = session.query(User).all()
         return jsonify({'users':
@@ -32,6 +34,7 @@ class UsersListResource(Resource):
     
 class FriendsUserResource(Resource):
     def get(self, user_id):
+        # Получение друзей определенного пользователя
         abort_if_users_not_found(user_id)
         session = db_session.create_session()
         list_friends = []
@@ -47,6 +50,7 @@ class FriendsUserResource(Resource):
 
 
 def abort_if_users_not_found(users_id):
+    # Возвращает ошибку 404 если пользователь не найден
     session = db_session.create_session()
     user = session.query(User).get(users_id)
     if not user:

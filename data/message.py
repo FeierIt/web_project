@@ -8,6 +8,7 @@ from sqlalchemy_serializer import SerializerMixin
 
 
 class Message(SqlAlchemyBase, UserMixin, SerializerMixin):
+    # Таблица с сообщениями
     __tablename__ = 'message'
         
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
