@@ -11,6 +11,7 @@
 * Комментарии
   + **GET**
     - **/api/comment/int:comment_id>** - информации комментария по его id.
+    - **/api/get_comments/int:photo_id** - получить все комментарии под фотографией.
   + **POST**
     - **/api/comments** - отправка комментария с обязательными полями(photo_id, text, email, password).  
     ```post('http://localhost:5000/api/comments',json={'photo_id': 2, 'email': 'mail@gmail.com', 'password': 'qwerty', 'text': 'test'})```
