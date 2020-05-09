@@ -1,6 +1,6 @@
-# [Socialize] (http://f31er.pythonanywhere.com)
+# [Socialize](http://f31er.pythonanywhere.com)
 ![](https://github.com/f31er/web_project/blob/master/static/img/big_logo.png)  
-[**Socialize**] (http://f31er.pythonanywhere.com) - это социальная сеть для **общения**. В ней вы сможете делиться своими **фотографиями** и cвоими эмоциями в **комментариях**.
+[**Socialize**](http://f31er.pythonanywhere.com) - это социальная сеть для **общения**. В ней вы сможете делиться своими **фотографиями** и cвоими эмоциями в **комментариях**.
 # API
 * Пользователи
   + **GET**
