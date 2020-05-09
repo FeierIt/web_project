@@ -1,7 +1,0 @@
-Flask
-Flask-Login
-Flask-RESTful
-Flask-WTF
-Pillow
-SQLAlchemy
-SQLAlchemy-serializer
