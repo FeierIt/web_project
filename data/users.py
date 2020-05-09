@@ -18,7 +18,8 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     birthday = sqlalchemy.Column(sqlalchemy.Date)  
     email = sqlalchemy.Column(sqlalchemy.String, index=True, unique=True, nullable=True)  
     friends = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, default=0)
-    avatar_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("avatar.id"))
+    avatar_id = sqlalchemy.Column(sqlalchemy.Integer, 
+                                  sqlalchemy.ForeignKey("avatar.id"))
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     photo = orm.relation('Photo', back_populates='user')
     avatar = orm.relation('Avatar', back_populates='user')

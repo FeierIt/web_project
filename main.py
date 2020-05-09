@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 from flask import Flask, url_for, request, render_template, redirect, abort
-from flask import make_response, jsonify, g
+from flask import make_response, jsonify
 from data import db_session
 from data.users import *
 from data.photo import *
@@ -16,7 +16,7 @@ from form.__all_form import *
 from datetime import datetime
 from flask_login import LoginManager, login_user, login_required, logout_user
 from flask_login import current_user
-from flask_restful import reqparse, abort, Api, Resource
+from flask_restful import abort, Api
 from werkzeug.utils import secure_filename
 import os 
 from PIL import Image
@@ -37,25 +37,25 @@ def sort_friends(friends, id):
         q = f"{q.friend2.name} {q.friend2.surname}"
     else:
         q = f"{q.friend1.name} {q.friend1.surname}"   
-    l = []
+    t = []
     m = []
     r = []   
     for i in range(len(friends)):
         if friends[i].friend_id1 == id:
-            if f"{friends[i].friend2.name} {friends[i].friend2.surname}"  < q:
-                l.append(friends[i]) 
+            if f"{friends[i].friend2.name} {friends[i].friend2.surname}" < q:
+                t.append(friends[i]) 
             elif f"{friends[i].friend2.name} {friends[i].friend2.surname}" > q: 
                 r.append(friends[i])
             else: 
                 m.append(friends[i])
         else:
-            if f"{friends[i].friend1.name} {friends[i].friend1.surname}"  < q:
-                l.append(friends[i]) 
+            if f"{friends[i].friend1.name} {friends[i].friend1.surname}" < q:
+                t.append(friends[i]) 
             elif f"{friends[i].friend1.name} {friends[i].friend1.surname}" > q: 
                 r.append(friends[i])
             else: 
                 m.append(friends[i])            
-    return sort_friends(l, id) + m + sort_friends(r, id)
+    return sort_friends(t, id) + m + sort_friends(r, id)
 
 
 @app.route('/delete_photo', methods=['POST'])
@@ -63,7 +63,6 @@ def sort_friends(friends, id):
 def delete_photo():
     session = db_session.create_session()
     if current_user.avatar is not None and current_user.avatar.photo_id == int(request.form['id']):
-        avatar = current_user.avatar
         user = session.query(User).get(current_user.id) 
         user.avatar_id = None
         session.commit()
@@ -92,14 +91,16 @@ def delete_friend():
     invite_db = Invite(
         sender_id=request.form['id'],
         receiver_id=current_user.id      
-        )         
+    )         
     a = session.query(Friends).filter(Friends.friend_id1 == request.form['id'],
                                       Friends.friend_id2 == current_user.id).first()
     if a:
         friend_invite = a
     else:
-        friend_invite = session.query(Friends).filter(Friends.friend_id1 == current_user.id,
-                                                      Friends.friend_id2 == request.form['id']).first() 
+        friend_invite = session.query(
+            Friends).filter(
+                Friends.friend_id1 == current_user.id,
+                Friends.friend_id2 == request.form['id']).first() 
     if friend_invite:
         session.delete(session.query(Friends).get(friend_invite.id))
         friend1 = session.query(User).get(current_user.id)
@@ -178,7 +179,7 @@ def search_friend():
             friend_invite = a
         else:
             friend_invite = session.query(Friends).filter(Friends.friend_id1 == current_user.id,
-                                                           Friends.friend_id2 == i.id).first()
+                                                          Friends.friend_id2 == i.id).first()
         if send and not accept and not friend_invite:
             type_invite = 1
         elif not send and not accept and not friend_invite:
@@ -187,8 +188,8 @@ def search_friend():
             type_invite = 2
         else:
             type_invite = 3        
-        list_info_user.append({'type': type_invite, 'id': i.id, 
-                               'name': i.name,'surname': i.surname, 
+        list_info_user.append({'type': type_invite, 'id': i.id,
+                               'name': i.name, 'surname': i.surname,
                                'avatar': i.avatar.photo.img_name if i.avatar else False})
     return jsonify({'users': list_info_user})
 
@@ -204,15 +205,15 @@ def message():
             receiver_message_id=request.form['receiver']
         )
         session.add(message_db)
-        dialog = session.query(Dialog
-                               ).filter(
-                                   (Dialog.friend_dialog_id1 == request.form['sender']) |
-                                   (Dialog.friend_dialog_id2 == request.form['receiver'])).first()
+        dialog = session.query(
+            Dialog).filter(
+                (Dialog.friend_dialog_id1 == request.form['sender']) |
+                (Dialog.friend_dialog_id2 == request.form['receiver'])).first()
         if not dialog:
-            dialog = session.query(Dialog
-                                   ).filter(
-                                       (Dialog.friend_dialog_id2 == request.form['sender']) |
-                                       (Dialog.friend_dialog_id1 == request.form['receiver'])).first()
+            dialog = session.query(
+                Dialog).filter(
+                    (Dialog.friend_dialog_id2 == request.form['sender']) |
+                    (Dialog.friend_dialog_id1 == request.form['receiver'])).first()
         print(dialog)
         if dialog:
             dialog.message_id = message_db.id
@@ -247,9 +248,9 @@ def like():
         photo_like.append(i.photo_id)      
     if int(request.form['id']) not in photo_like:
         like_db = Like(
-                    user_id=current_user.id,
-                            photo_id=int(request.form['id'])
-                )
+            user_id=current_user.id,
+            photo_id=int(request.form['id'])
+        )
         photo = session.query(Photo).get(int(request.form['id']))
         photo.likes += 1
         session.add(like_db)
@@ -271,7 +272,7 @@ def like():
 def accept_invite():
     session = db_session.create_session()
     invite = session.query(Invite).filter(Invite.sender_id == request.form['id'],
-                                           Invite.receiver_id == current_user.id).first()
+                                          Invite.receiver_id == current_user.id).first()
     if invite:
         friend_db = Friends(
             friend_id1=current_user.id,
@@ -313,16 +314,15 @@ def first_comments():
     return jsonify({'comments': first_comments})
     
 
-
 @app.route('/comment', methods=['POST'])
 @login_required
 def comment():
     session = db_session.create_session()
     comment_db = Comment(
-            text=request.form['text'],
-            user_id=current_user.id,
-            photo_id=int(request.form['id'])
-        )
+        text=request.form['text'],
+        user_id=current_user.id,
+        photo_id=int(request.form['id'])
+    )
     session.add(comment_db)
     session.commit()
     return jsonify({'name': current_user.name, 'surname': current_user.surname, 
@@ -364,7 +364,6 @@ def list_dialog():
     current_user2 = session.query(User).filter(User.id == current_user.id).first()
     return render_template('list_message.html', title='Сообщения', current_user2=current_user2,
                            list_last_message=list_last_message)
-
 
 
 @app.route('/invite_friends', methods=['GET'])
@@ -479,7 +478,7 @@ def user(id):
                     invite_db = Invite(
                         sender_id=current_user.id,
                         receiver_id=id      
-                        )
+                    )
                     session.add(invite_db)
                 elif type_invite == 1:
                     session.delete(session.query(Invite).get(send.id))    
@@ -487,7 +486,7 @@ def user(id):
                     friend_db = Friends(
                         friend_id1=current_user.id,
                         friend_id2=id
-                        )
+                    )
                     friend1 = session.query(User).get(current_user.id)
                     friend2 = session.query(User).get(id)
                     friend1.friends += 1
@@ -498,7 +497,7 @@ def user(id):
                     invite_db = Invite(
                         sender_id=id,
                         receiver_id=current_user.id      
-                        )         
+                    )         
                     session.delete(session.query(Friends).get(friend_invite.id))
                     friend1 = session.query(User).get(current_user.id)
                     friend2 = session.query(User).get(id)
@@ -585,7 +584,7 @@ def index():
             return redirect("/")
         return render_template('index.html',
                                message="Неправильный логин или пароль",
-                    form=form)
+                               form=form)
     if current_user.is_authenticated:
         friends = list(session.query(Friends).filter((Friends.friend_id1 == current_user.id) |
                                                      (Friends.friend_id2 == current_user.id)))
@@ -628,18 +627,24 @@ def not_found(error):
 def main():
     try:
         db_session.global_init("db/social.sqlite")    
-    except:
+    except Exception:
         pass 
     api.add_resource(photo_resources.PhotoResource, '/api/photo/<int:photo_id>')
-    api.add_resource(photo_resources.PhotoDeleteResource, '/api/delete_photo/<int:photo_id>&<email>&<password>')
-    api.add_resource(photo_resources.PhotoUserResource, '/api/get_photos/<int:user_id>')
-    api.add_resource(comment_resources.CommentResource, '/api/comment/<int:comment_id>')
-    api.add_resource(comment_resources.CommentDeleteResource, '/api/delete_comment/<int:comment_id>&<email>&<password>')
+    api.add_resource(photo_resources.PhotoDeleteResource, 
+                     '/api/delete_photo/<int:photo_id>&<email>&<password>')
+    api.add_resource(photo_resources.PhotoUserResource, 
+                     '/api/get_photos/<int:user_id>')
+    api.add_resource(comment_resources.CommentResource, 
+                     '/api/comment/<int:comment_id>')
+    api.add_resource(comment_resources.CommentDeleteResource, 
+                     '/api/delete_comment/<int:comment_id>&<email>&<password>')
     api.add_resource(comment_resources.CommentListResource, '/api/comments')
-    api.add_resource(comment_resources.CommentPhotoResource, '/api/get_comments/<int:photo_id>')
+    api.add_resource(comment_resources.CommentPhotoResource, 
+                     '/api/get_comments/<int:photo_id>')
     api.add_resource(user_resources.UsersListResource, '/api/users') 
     api.add_resource(user_resources.UserResource, '/api/user/<int:user_id>')
-    api.add_resource(user_resources.FriendsUserResource, '/api/friends/<int:user_id>')
+    api.add_resource(user_resources.FriendsUserResource, 
+                     '/api/friends/<int:user_id>')
     app.run()
 
 

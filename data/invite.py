@@ -11,8 +11,10 @@ class Invite(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'invite'
         
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
-    sender_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
-    receiver_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
+    sender_id = sqlalchemy.Column(sqlalchemy.Integer, 
+                                  sqlalchemy.ForeignKey("users.id"))
+    receiver_id = sqlalchemy.Column(sqlalchemy.Integer, 
+                                    sqlalchemy.ForeignKey("users.id"))
     archive = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
     sender = orm.relation('User', foreign_keys=[sender_id]) 
     receiver = orm.relation('User', foreign_keys=[receiver_id]) 

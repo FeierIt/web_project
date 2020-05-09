@@ -11,7 +11,9 @@ class Like(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'likes'
     
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
-    user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
-    photo_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("photo.id"))
+    user_id = sqlalchemy.Column(sqlalchemy.Integer, 
+                                sqlalchemy.ForeignKey("users.id"))
+    photo_id = sqlalchemy.Column(sqlalchemy.Integer, 
+                                 sqlalchemy.ForeignKey("photo.id"))
     user = orm.relation('User')
     photo = orm.relation('Photo')

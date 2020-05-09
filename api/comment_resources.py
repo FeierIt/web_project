@@ -2,13 +2,14 @@ from data import db_session
 from data.photo import Photo
 from data.users import User
 from data.comment import Comment
-from flask import jsonify, request
-from flask_restful import reqparse, abort, Api, Resource
+from flask import jsonify
+from flask_restful import reqparse, abort, Resource
 parser = reqparse.RequestParser()
 parser.add_argument('photo_id', required=True, type=int)
 parser.add_argument('text', required=True)
 parser.add_argument('password', required=True)
 parser.add_argument('email', required=True)
+
 
 class CommentPhotoResource(Resource):
     def get(self, photo_id):
@@ -43,10 +44,10 @@ class CommentListResource(Resource):
         user = session.query(User).filter(User.email == args['email']).first()
         if user and user.check_password(args['password']):     
             comment_db = Comment(
-                    text=args['text'],
-                    user_id=user.id,
-                    photo_id=args['photo_id']
-                )
+                text=args['text'],
+                user_id=user.id,
+                photo_id=args['photo_id']
+            )
             session.add(comment_db)
             session.commit()            
             return jsonify({'success': 'OK'})
