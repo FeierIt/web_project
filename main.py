@@ -589,6 +589,25 @@ def login():
     return render_template('login.html', title='Авторизация', form=form)
 
 
+@app.route('/vk_login')
+def vk_login():
+    # Вход через VK
+    session = db_session.create_session()
+    user = session.query(User).filter(User.hash_vk == request.args['hash']).first()
+    if user:
+        login_user(user)
+    else:
+        user = User(
+            surname=request.args['last_name'],
+            name=request.args['first_name'],
+            hash_vk=request.args['hash']
+        )    
+        session.add(user)
+        session.commit()  
+        login_user(user)
+    return redirect("/")
+
+
 @app.route('/logout')
 @login_required
 def logout():
